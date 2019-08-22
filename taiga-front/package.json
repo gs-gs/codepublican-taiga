@@ -1,0 +1,20 @@
+{
+    "name": "TaigaIO_CodePublican",
+    "keywords": [
+      "Taiga",
+      "Agile",
+      "Project Management",
+      "Github"
+    ],
+    "author": "Kaleidos OpenSource SL",
+    "licenses": [
+      {
+        "type": "AGPL-3.0",
+        "url": "https://github.com/taigaio/taiga-front/blob/master/LICENSE"
+      }
+    ],
+    "scripts" : {
+        "package": "mkdir -p dist && cd clone/dist && zip -qr ../../dist/spa ./*"
+    }
+  }
+  
