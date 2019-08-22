@@ -1,0 +1,17 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r /app/requirements.txt
+
+# For KMS / env decryption
+boto3>=1.7.72,<2
+awscli>=1.15.76,<2
+
+# Celery 
+flower==0.9.3  # https://github.com/mher/flower
+
+# Django
+# ------------------------------------------------------------------------------
+django-environ==0.4.5  # https://github.com/joke2k/django-environ
+django-anymail[amazon_ses]==5.0  # https://github.com/anymail/django-anymail
+# downgraded due https://github.com/jschneier/django-storages/issues/382
+django-storages[boto3]==1.7.1  # https://github.com/jschneier/django-storages

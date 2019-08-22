@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+GUNICORN_TIMEOUT="${GUNICORN_TIMEOUT:-"320"}"
+GUNICORN_WORKERS="${GUNICORN_WORKERS:-"12"}"
+
+python /app/manage.py collectstatic --noinput || true
+python /app/manage.py compilemessages || true
+
+/usr/local/bin/gunicorn  taiga.wsgi --bind 0.0.0.0:5000 --chdir=/app --timeout "${GUNICORN_TIMEOUT}" --workers="${GUNICORN_WORKERS}"

@@ -1,0 +1,4 @@
+{
+    "Units" : [ "backend-api,backend-celeryworker,backend-flower,backend-task" ],
+    "Formats": ["docker"]
+}
