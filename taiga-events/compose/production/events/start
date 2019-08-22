@@ -1,0 +1,30 @@
+#!/bin/ash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+echo 'App Starting...'
+echo "Timing $(date +%FT%T )"
+
+# Update the config file 
+SECRET_KEY="${SECRET_KEY:-""}"
+SECRET_KEY_ENCRYPTED="${SECRET_KEY_ENCRYPTED:-"false"}"
+
+if [[ "${SECRET_KEY_ENCRYPTED}" == "true" ]]; then
+    echo "${SECRET_KEY#"base64:"}" | base64 -d > "/tmp/cipher.blob"
+    SECRET_KEY="$(aws --region "${AWS_REGION}" kms decrypt --ciphertext-blob "fileb:///tmp/cipher.blob" --output text --query Plaintext | base64 -d )"
+
+    if [[ -z "${SECRET_KEY}" ]]; then
+        echo "Secret Key  was supposed to be encrypted but we couldn't decrypt it"
+        exit 255
+    fi
+fi
+
+RABBIT_URL="${RABBIT_URL:-"amqp://guest:guest@localhost:5672"}"
+
+jq  --arg secret_key "${SECRET_KEY}" \
+    --arg url "${RABBIT_URL}" \
+    '.secret=$secret_key | .url=$url' <  "/app/config.example.json" > "/app/config.json"
+
+/app/node_modules/coffeescript/bin/coffee index.coffee
