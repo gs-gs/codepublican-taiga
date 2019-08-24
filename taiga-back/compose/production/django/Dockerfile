@@ -19,7 +19,7 @@ RUN apk update \
 
 WORKDIR /app
 
-RUN useradd --shell /bin/sh --create-home taiga
+RUN addgroup -S taiga && adduser -S taiga -G taiga
 
 ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
     RUN tar -xzf ${TAIGA_VERSION}.tar.gz -C ./ taiga-back-${TAIGA_VERSION} --strip-components=1
