@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 
 set -o errexit
 set -o pipefail
@@ -7,10 +7,14 @@ set -o nounset
 echo 'App Starting...'
 echo "Timing $(date +%FT%T )"
 
-if [ "${DATABASE_PASSWORD:-""}" == "base64:"* ]; then
+if [[ "${DATABASE_PASSWORD:-""}" == "base64:"* ]]; then
     echo "Decrypting password..."
     echo "${DATABASE_PASSWORD#"base64:"}" | base64 -d > "/tmp/cipher.blob"
     export DATABASE_PASSWORD="$(aws --region "${AWS_REGION}" kms decrypt --ciphertext-blob "fileb:///tmp/cipher.blob" --output text --query Plaintext | base64 -d || exit $?)"
+    if [[ -z "${DATABASE_PASSWORD}" ]]; then
+         echo "Database Password was supposed to be encrypted but we couldn't decrypt it"
+         exit 255
+    fi
 fi
 
 export POSTGRES_USER="${POSTGRES_USER:-$DATABASE_USERNAME}"

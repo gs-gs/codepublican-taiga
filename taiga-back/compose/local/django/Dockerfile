@@ -15,7 +15,7 @@ RUN apk update \
     freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
     openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
     # Other tools
-    git
+    git bash
 
 WORKDIR /app
 
