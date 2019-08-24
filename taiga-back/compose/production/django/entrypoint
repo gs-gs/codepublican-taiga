@@ -4,7 +4,11 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+echo 'App Starting...'
+echo "Timing $(date +%FT%T )"
+
 if [ "${DATABASE_PASSWORD:-""}" == "base64:"* ]; then
+    echo "Decrypting password..."
     echo ${DATABASE_PASSWORD#"base64:"}| base64 -d > "/tmp/cipher.blob"
     export DATABASE_PASSWORD="$(aws --region "${AWS_REGION}" kms decrypt --ciphertext-blob "fileb:///tmp/cipher.blob" --output text --query Plaintext | base64 -d || exit $?)"
 fi
@@ -14,7 +18,7 @@ export POSTGRES_PASSWORD="${POSTGRES_PASSWORD:-$DATABASE_PASSWORD}"
 export POSTGRES_DB="${POSTGRES_DB:-$DATABASE_NAME}"
 export POSTGRES_HOST="${POSTGRES_HOST:-$DATABASE_FQDN}"
 export POSTGRES_PORT="${POSTGRES_PORT:-$DATABASE_PORT}"
-export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"s
+export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
 
 postgres_ready() {
 python << END
