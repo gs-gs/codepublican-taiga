@@ -41,7 +41,7 @@ SITES['api']['scheme'] = env('TAIGA_SITE_API_SCHEME', default='http')
 SITES['api']['domain'] = env('TAIGA_SITE_API_FQDN', default='localhost:8000')
 
 SITES['front']['scheme'] = env('TAIGA_SITE_FRONT_SCHEME', default='http')
-SITES['front']['scheme'] = env('TAIGA_SITE_FRONT_FQND', default='localhost:9001')
+SITES['front']['scheme'] = env('TAIGA_SITE_FRONT_FQDN', default='localhost:9001')
 
 # WebHooks
 # ----------------------------------------------------------------------------
@@ -69,7 +69,6 @@ GITHUB_API_URL = "https://api.github.com/"
 GITHUB_API_CLIENT_ID = env('TAIGA_AUTH_GITHUB_CLIENT_ID', default=None )
 GITHUB_API_CLIENT_SECRET = env('TAIGA_AUTH_GITHUB_CLIENT_SECRET', default=None )
 
-
 # Celery
 # ----------------------------------------------------------------------------
 CELERY_ENABLED = env.bool('CELERY_ENABLED', default=True )
@@ -90,8 +89,12 @@ DATABASES["default"] = env.db('DATABASE_URL', default='')  # noqa F405
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 
-DEFAULT_FROM_EMAIL = "no-reply@example.com"
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
+DEFAULT_FROM_EMAIL = env( 'DJANGO_DEFAULT_FROM_EMAIL', default='Taiga<noreply@example.com>' )
+# https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Taiga]')
 
 CHANGE_NOTIFICATIONS_MIN_INTERVAL = env.int('TAIGA_EMAIL_NOTIFICATIONS_WAIT_TIME', default=300) #seconds
 
@@ -112,28 +115,28 @@ FRONT_SITEMAP_CACHE_TIMEOUT = 60*60  # In second
 
 # Configuration for the GitHub importer
 # Remember to enable it in the front client too.
-#IMPORTERS["github"] = {
-#    "active": True, # Enable or disable the importer
-#    "client_id": "XXXXXX_get_a_valid_client_id_from_github_XXXXXX",
-#    "client_secret": "XXXXXX_get_a_valid_client_secret_from_github_XXXXXX"
-#}
+IMPORTERS["github"] = {
+    "active": env.bool('TAIGA_IMPORTER_GITHUB_ENABLED', default=False),
+    "client_id": env('TAIGA_IMPORTER_GITHUB_CLIENT_ID', default=None),
+    "client_secret": env('TAIGA_IMPORTER_GITHUB_CLIENT_SECRET', default=None)
+}
 
 # Configuration for the Trello importer
 # Remember to enable it in the front client too.
-#IMPORTERS["trello"] = {
-#    "active": True, # Enable or disable the importer
-#    "api_key": "XXXXXX_get_a_valid_api_key_from_trello_XXXXXX",
-#    "secret_key": "XXXXXX_get_a_valid_secret_key_from_trello_XXXXXX"
-#}
+IMPORTERS["trello"] = {
+    "active": env.bool('TAIGA_IMPORTER_TRELLO_ENABLED', default=False),
+    "api_key": env('TAIGA_IMPORTER_TRELLO_API_KEY', default=None),
+    "secret_key": env('TAIGA_IMPORTER_TRELLO_SECRET_KEY', default=None)
+}
 
 # Configuration for the Jira importer
 # Remember to enable it in the front client too.
-#IMPORTERS["jira"] = {
-#    "active": True, # Enable or disable the importer
-#    "consumer_key": "XXXXXX_get_a_valid_consumer_key_from_jira_XXXXXX",
-#    "cert": "XXXXXX_get_a_valid_cert_from_jira_XXXXXX",
-#    "pub_cert": "XXXXXX_get_a_valid_pub_cert_from_jira_XXXXXX"
-#}
+IMPORTERS["jira"] = {
+    "active": env.bool('TAIGA_IMPORTER_JIRA_ENABLED', default=False), # Enable or disable the importer
+    "consumer_key": env('TAIGA_IMPORTER_JIRA_CONSUMER_KEY', default=None),
+    "cert": env('TAIGA_IMPORTER_JIRA_CERT', default=None),
+    "pub_cert": env('TAIGA_IMPORTER_JIRA_PUB_CERT', default=None)
+}
 
 # Configuration for the Asane importer
 # Remember to enable it in the front client too.

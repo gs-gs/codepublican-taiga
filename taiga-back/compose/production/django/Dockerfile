@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.6-alpine3.6
 
 ARG TAIGA_VERSION=4.2.12
 
@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE=settings.overrides.production
 
 RUN apk update \
-    && apk add --virtual build-dependencies \
+    && apk add build-dependencies \
     # Essentials
     gcc musl-dev  libressl libressl-dev \
     # Postgres python client (psycopg2) build dependency

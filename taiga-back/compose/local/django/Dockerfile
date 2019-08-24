@@ -1,12 +1,12 @@
 FROM python:3.6-alpine3.6
 
+ARG TAIGA_VERSION=4.2.12
+
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-ARG TAIGA_VERSION=4.2.12
-
 RUN apk update \
-    && apk add --virtual build-dependencies \
+    && apk add build-dependencies \
     # Essentials
     gcc musl-dev libressl-dev \
     # Postgres python client (psycopg2) build dependency
