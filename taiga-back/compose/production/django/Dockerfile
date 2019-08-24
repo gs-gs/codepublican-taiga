@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE=settings.overrides.production
 
 RUN apk update \
-    && apk add build-dependencies \
+    && apk add --virtual build-dependencies \
     # Essentials
     gcc musl-dev  libressl libressl-dev \
     # Postgres python client (psycopg2) build dependency

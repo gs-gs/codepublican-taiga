@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
 RUN apk update \
-    && apk add build-dependencies \
+    && apk add --virtual build-dependencies \
     # Essentials
     gcc musl-dev libressl-dev \
     # Postgres python client (psycopg2) build dependency
