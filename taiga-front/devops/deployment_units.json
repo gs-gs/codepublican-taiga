@@ -1,4 +1,4 @@
 {
-    "Units" : [ "front-spa" ],
+    "Units" : [ "frontend-spa" ],
     "Formats": ["spa"]
 }
