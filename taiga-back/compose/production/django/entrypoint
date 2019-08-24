@@ -9,7 +9,7 @@ echo "Timing $(date +%FT%T )"
 
 if [ "${DATABASE_PASSWORD:-""}" == "base64:"* ]; then
     echo "Decrypting password..."
-    echo ${DATABASE_PASSWORD#"base64:"}| base64 -d > "/tmp/cipher.blob"
+    echo "${DATABASE_PASSWORD#"base64:"}" | base64 -d > "/tmp/cipher.blob"
     export DATABASE_PASSWORD="$(aws --region "${AWS_REGION}" kms decrypt --ciphertext-blob "fileb:///tmp/cipher.blob" --output text --query Plaintext | base64 -d || exit $?)"
 fi
 
