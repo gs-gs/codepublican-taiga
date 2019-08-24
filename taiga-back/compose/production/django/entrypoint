@@ -6,7 +6,7 @@ set -o nounset
 
 if [ "${DATABASE_PASSWORD:-""}" == "base64:"* ]; then
     echo ${DATABASE_PASSWORD#"base64:"}| base64 -d > "/tmp/cipher.blob"
-    DATABASE_PASSWORD="$(aws --region "${AWS_REGION}" kms decrypt --ciphertext-blob "fileb:///tmp/cipher.blob" --output text --query Plaintext | base64 -d || exit $?)"
+    export DATABASE_PASSWORD="$(aws --region "${AWS_REGION}" kms decrypt --ciphertext-blob "fileb:///tmp/cipher.blob" --output text --query Plaintext | base64 -d || exit $?)"
 fi
 
 export POSTGRES_USER="${POSTGRES_USER:-$DATABASE_USERNAME}"
