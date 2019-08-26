@@ -54,7 +54,7 @@ WEBHOOKS_BLOCK_PRIVATE_ADDRESS = env.bool('TAIGA_WEBHOOKS_BLOCK_PRIVATE_ADDRESS'
 EVENTS_PUSH_BACKEND = "taiga.events.backends.rabbitmq.EventsPushBackend"
 
 EVENTS_PUSH_BACKEND_OPTIONS = {} 
-EVENTS_PUSH_BACKEND_OPTIONS['url'] = env.url('TAIGA_EVENTS_BACKEND_URL', default='')
+EVENTS_PUSH_BACKEND_OPTIONS['url'] = env('TAIGA_EVENTS_BACKEND_URL', default='')
 
 # Auth
 # ----------------------------------------------------------------------------
