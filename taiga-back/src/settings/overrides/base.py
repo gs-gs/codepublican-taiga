@@ -41,7 +41,7 @@ SITES['api']['scheme'] = env('TAIGA_SITE_API_SCHEME', default='http')
 SITES['api']['domain'] = env('TAIGA_SITE_API_FQDN', default='localhost:8000')
 
 SITES['front']['scheme'] = env('TAIGA_SITE_FRONT_SCHEME', default='http')
-SITES['front']['scheme'] = env('TAIGA_SITE_FRONT_FQDN', default='localhost:9001')
+SITES['front']['domain'] = env('TAIGA_SITE_FRONT_FQDN', default='localhost:9001')
 
 # WebHooks
 # ----------------------------------------------------------------------------
