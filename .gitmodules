@@ -1,3 +1,0 @@
-[submodule "taiga-front/clone"]
-	path = taiga-front/clone
-	url = https://github.com/taigaio/taiga-front-dist.git
