@@ -1,5 +1,9 @@
 import logging
+
+from .base import *  # noqa
 from .base import env
+
+from settings.common import LOGGING
 
 SENTRY_DSN = env('SENTRY_DSN', default=None)
 SENTRY_CLIENT = env('DJANGO_SENTRY_CLIENT', default='raven.contrib.django.raven_compat.DjangoClient')
@@ -10,7 +14,6 @@ if SENTRY_DSN:
         'release': env('SENTRY_RELEASE', default='unknown'),
         'environment': env('SENTRY_ENVIRONMENT', default='unkown'),
     }
-
 
 LOGGING['handlers']['console']['level'] = 'INFO'
 LOGGING['handlers']['sentry'] = { 
