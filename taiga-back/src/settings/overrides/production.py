@@ -22,7 +22,7 @@ if EC2_PRIVATE_IP:
 
 # So that the healthcheck works without being redirected to https
 SECURE_REDIRECT_EXEMPT = [
-    r'^healtcheck'
+    r"^front/sitemap\.xml$"
 ]
 
 # SECURITY
