@@ -16,24 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from kombu import Queue
 from .overrides.base import *
 from .overrides.kms import env
-from kombu import Queue
+
+from .celery import *
 
 broker_url = env('CELERY_BROKER_URL', default='amqp://guest:guest@localhost:5672//')
 result_backend = broker_url
 
 timezone = TIME_ZONE
 
-accept_content = ['pickle',] # Values are 'pickle', 'json', 'msgpack' and 'yaml'
-task_serializer = "pickle"
-result_serializer = "pickle"
-
-task_default_queue = 'tasks'
-task_queues = (
-    Queue('tasks', routing_key='task.#'),
-    Queue('transient', routing_key='transient.#', delivery_mode=1)
-)
-task_default_exchange = 'tasks'
-task_default_exchange_type = 'topic'
-task_default_routing_key = 'task.default'

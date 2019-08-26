@@ -30,7 +30,7 @@ COPY ./requirements /requirements
 RUN pip install --no-cache-dir -r /requirements/extended.txt \
     && rm -rf /extended
 
-COPY ./src/settings/overrides /app/settings/overrides
+COPY ./src/settings/ /app/settings/
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
