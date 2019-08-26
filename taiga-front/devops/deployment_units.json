@@ -1,4 +1,4 @@
 {
     "Units" : [ "frontend" ],
-    "Formats": ["spa"]
+    "Formats": ["docker"]
 }

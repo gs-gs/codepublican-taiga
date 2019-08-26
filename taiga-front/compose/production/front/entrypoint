@@ -1,0 +1,18 @@
+#!/bin/ash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+echo 'App Starting...'
+echo "Timing $(date +%FT%T )"
+
+echo "Building config file"
+jq  --arg api "${TAIGA_SITE_API_URL:-"http://localhost:8000/api/v1/"}" \
+    --arg eventsUrl "${TAIGA_EVENTS_BACKEND_URL:=""}" \
+    --arg debug "${DEBUG:-"false"}" \
+    --arg publicRegstierEnabled "${TAIGA_AUTH_SELF_REGISTER:-"false"}" \
+    '.api=$api | .eventsUrl=$eventsUrl | .debug=$debug | .publicRegisterEnabled=$publicRegstierEnabled' \
+    <  "/usr/share/nginx/html/conf.example.json" > "/usr/share/nginx/html/conf.json"
+    
+exec "$@"
