@@ -13,7 +13,7 @@ RUN apk update \
     postgresql-dev \
     # Pillow / PIL build dependencies
     freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
-    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
+    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev gettext-dev \
     # Other tools
     git bash
 

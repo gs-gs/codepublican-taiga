@@ -8,12 +8,12 @@ ENV DJANGO_SETTINGS_MODULE=settings.overrides.production
 RUN apk update \
     && apk add --virtual build-dependencies \
     # Essentials
-    gcc musl-dev  libressl libressl-dev \
+    gcc musl-dev libressl-dev \
     # Postgres python client (psycopg2) build dependency
     postgresql-dev \
     # Pillow / PIL build dependencies
     freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
-    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
+    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev gettext-dev \
     # Other tools
     git bash
 
