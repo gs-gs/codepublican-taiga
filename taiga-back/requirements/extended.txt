@@ -9,9 +9,17 @@ awscli>=1.15.76,<2
 # Celery 
 flower==0.9.3  # https://github.com/mher/flower
 
+#Sentry
+raven==6.9.0  # https://github.com/getsentry/raven-python
+
 # Django
 # ------------------------------------------------------------------------------
 django-environ==0.4.5  # https://github.com/joke2k/django-environ
 django-anymail[amazon_ses]==5.0  # https://github.com/anymail/django-anymail
 # downgraded due https://github.com/jschneier/django-storages/issues/382
 django-storages[boto3]==1.7.1  # https://github.com/jschneier/django-storages
+
+# Taiga Plugins
+# ------------------------------------------------------------------------------
+taiga-contrib-github-auth==3.1 # https://github.com/taigaio/taiga-contrib-github-auth
+taiga-contrib-slack=3.1 # https://github.com/taigaio/taiga-contrib-slack

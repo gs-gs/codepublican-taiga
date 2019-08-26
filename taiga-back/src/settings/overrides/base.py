@@ -64,10 +64,16 @@ PUBLIC_REGISTER_ENABLED = env.bool('TAIGA_AUTH_SELF_REGISTER', default=False)
 USER_EMAIL_ALLOWED_DOMAINS = env('TAIGA_AUTH_ALLOWED_DOMAINS', default=None)
 
 # GITHUB Auth SETTINGS
+INSTALLED_APPS += [ "taiga_contrib_github_auth" ]
+
 GITHUB_URL = "https://github.com/"
 GITHUB_API_URL = "https://api.github.com/"
 GITHUB_API_CLIENT_ID = env('TAIGA_AUTH_GITHUB_CLIENT_ID', default=None )
 GITHUB_API_CLIENT_SECRET = env('TAIGA_AUTH_GITHUB_CLIENT_SECRET', default=None )
+
+# Slack 
+# ----------------------------------------------------------------------------
+INSTALLED_APPS += [ "taiga_contrib_slack" ]
 
 # Celery
 # ----------------------------------------------------------------------------
@@ -151,3 +157,5 @@ IMPORTERS["jira"] = {
 #    "app_id": "XXXXXX_get_a_valid_app_id_from_asana_XXXXXX",
 #    "app_secret": "XXXXXX_get_a_valid_app_secret_from_asana_XXXXXX"
 #}
+
+from .base_logging import *  # NOQA
