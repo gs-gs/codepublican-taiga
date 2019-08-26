@@ -8,10 +8,11 @@ DJANGO_SETTINGS_MODULE=settings.overrides.local
 
 # Redis
 # ------------------------------------------------------------------------------
-REDIS_URL=redis://redis:6379/0
+TAIGA_EVENTS_BACKEND_URL=redis://redis:6379/0
 
 # Celery
 # ------------------------------------------------------------------------------
+CELERY_ENABLED=true
 CELERY_BROKER_URL=redis://redis:6379/0
 
 # Flower

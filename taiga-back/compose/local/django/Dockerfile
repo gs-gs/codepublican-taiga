@@ -19,31 +19,39 @@ RUN apk update \
 
 WORKDIR /app
 
+RUN addgroup -S taiga && adduser -S taiga -G taiga
+
 ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
     RUN tar -xzf ${TAIGA_VERSION}.tar.gz -C ./ taiga-back-${TAIGA_VERSION} --strip-components=1
 RUN rm ${TAIGA_VERSION}.tar.gz
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
-RUN pip install -r /requirements/extended.txt
+RUN pip install --no-cache-dir -r /requirements/extended.txt
 
 COPY ./src/settings/overrides /app/settings/overrides
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
+RUN chown taiga /entrypoint
 
 COPY ./compose/local/django/start /start
 RUN sed -i 's/\r//' /start
 RUN chmod +x /start
+RUN chown taiga /start
 
 COPY ./compose/local/django/celery/worker/start /start-celeryworker
 RUN sed -i 's/\r//' /start-celeryworker
 RUN chmod +x /start-celeryworker
+RUN chown taiga /start-celeryworker
 
 COPY ./compose/local/django/celery/flower/start /start-flower
 RUN sed -i 's/\r//' /start-flower
 RUN chmod +x /start-flower
+
+RUN chown -R taiga /app
+USER taiga
 
 WORKDIR /app
 

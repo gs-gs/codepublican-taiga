@@ -3,6 +3,8 @@ import requests
 from .base import *  # noqa
 from .base import env
 
+from settings.common import MIDDLEWARE_CLASSES
+
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -99,4 +101,4 @@ MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
 # ------------------------------------------------------------------------------
 # https://docs.sentry.io/clients/python/integrations/django/
 INSTALLED_APPS += ['raven.contrib.django.raven_compat']  # noqa F405
-MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware'] + MIDDLEWARE # noqa
+MIDDLEWARE_CLASSES += ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware'] # noqa

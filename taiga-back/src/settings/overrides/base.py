@@ -71,19 +71,9 @@ GITHUB_API_URL = "https://api.github.com/"
 GITHUB_API_CLIENT_ID = env('TAIGA_AUTH_GITHUB_CLIENT_ID', default=None )
 GITHUB_API_CLIENT_SECRET = env('TAIGA_AUTH_GITHUB_CLIENT_SECRET', default=None )
 
-# Slack 
-# ----------------------------------------------------------------------------
-INSTALLED_APPS += [ "taiga_contrib_slack" ]
-
 # Celery
 # ----------------------------------------------------------------------------
 CELERY_ENABLED = env.bool('CELERY_ENABLED', default=True )
-CELERY_BROKER_URL = env('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-
-# kombu overrides
-broker_url = CELERY_BROKER_URL
-result_backend = CELERY_BROKER_URL
 
 if USE_TZ:
     # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
