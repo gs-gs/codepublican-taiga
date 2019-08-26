@@ -9,11 +9,9 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: lae_observer_local_django
+    image: taiga_local_django
     depends_on:
       - postgres
-    volumes:
-      - .:/app
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
@@ -37,7 +35,7 @@ services:
 
   celeryworker:
     <<: *django
-    image: lae_observer_local_celeryworker
+    image: taiga_local_celeryworker
     restart: on-failure
     depends_on:
       - redis
@@ -48,7 +46,7 @@ services:
 
   flower:
     <<: *django
-    image: lae_observer_local_flower
+    image: taiga_local_flower
     restart: on-failure
     ports:
       - "5555:5555"
