@@ -22,4 +22,4 @@ EMAIL_PORT = 1025
 
 # EVENTS
 # ---------------------------------------------------------------------------
-EVENTS_PUSH_BACKEND_OPTIONS['url'] = env.url('TAIGA_EVENTS_BACKEND_URL', default='amqp://taiga:local@localhost:5672/taiga')
+EVENTS_PUSH_BACKEND_OPTIONS['url'] = env('TAIGA_EVENTS_BACKEND_URL', default='amqp://taiga:local@localhost:5672/taiga')
