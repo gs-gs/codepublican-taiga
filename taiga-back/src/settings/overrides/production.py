@@ -95,10 +95,3 @@ AWS_DEFAULT_ACL = None
 # won't work this way anyway due to private buckets; and it's good.
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
-
-
-# Sentry Raven
-# ------------------------------------------------------------------------------
-# https://docs.sentry.io/clients/python/integrations/django/
-INSTALLED_APPS += ['raven.contrib.django.raven_compat']  # noqa F405
-MIDDLEWARE_CLASSES += ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware'] # noqa
