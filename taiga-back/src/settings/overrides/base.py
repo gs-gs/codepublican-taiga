@@ -1,6 +1,8 @@
 """
 Base settings to build other settings files upon.
 """
+
+from settings.celery import broker_url, result_backend, timezone
 from settings.common import *
 from .kms import env
 
@@ -75,9 +77,12 @@ GITHUB_API_CLIENT_SECRET = env('TAIGA_AUTH_GITHUB_CLIENT_SECRET', default=None )
 # ----------------------------------------------------------------------------
 CELERY_ENABLED = env.bool('CELERY_ENABLED', default=True )
 
+broker_url = env('CELERY_BROKER_URL', default='')
+result_backend = broker_url
+
 if USE_TZ:
     # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
-    CELERY_TIMEZONE = TIME_ZONE
+    timezone = TIME_ZONE
 
 # DATABASES
 # ------------------------------------------------------------------------------
