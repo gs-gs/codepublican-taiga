@@ -14,7 +14,7 @@ jq  --arg api "${TAIGA_SITE_API_URL:-"http://localhost:8000/api/v1/"}" \
     --arg publicRegstierEnabled "${TAIGA_AUTH_SELF_REGISTER:-"false"}" \
     --arg contribPlugins "${TAIGA_FRONTEND_PLUGINS}" \
     --arg githubClientId "${TAIGA_AUTH_GITHUB_CLIENT_ID:-""}" \
-    '.api=$api | .eventsUrl=$eventsUrl | .debug=$debug | .publicRegisterEnabled=$publicRegstierEnabled | .gitHubClientId=$githubClientId | .contribPlugins=($contribPlugins | split(" ")) | del( .contribPlugins[] | select( . == "")) | importers=["github"]' \
+    '.api=$api | .eventsUrl=$eventsUrl | .debug=( $debug | test("true") ) | .publicRegisterEnabled=( $publicRegstierEnabled | test("true")) | .gitHubClientId=$githubClientId | .contribPlugins=($contribPlugins | split(" ")) | del( .contribPlugins[] | select( . == "")) | .importers=["github"]' \
     <  "/usr/share/nginx/html/conf.example.json" > "/usr/share/nginx/html/conf.json"
     
 exec "$@"
