@@ -94,4 +94,3 @@ AWS_DEFAULT_ACL = None
 # ------------------------------------------------------------------------------
 # won't work this way anyway due to private buckets; and it's good.
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
